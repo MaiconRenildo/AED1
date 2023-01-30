@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{
+	int info;
+	struct no *esq,
+	*dir;
+}no;
+
+no *raiz;
+
+no* inicializaArv(){
+	return NULL;
+}
+
+no* criaNo(int valor){
+	no* aux = (no*) malloc(sizeof(no));
+	if(aux!=NULL){
+		aux->info = valor;
+		aux->esq = NULL;
+		aux->dir = NULL;
+	}
+	return aux;
+}
+
+void insereNo(int valor){
+	no *aux = criaNo(valor); // cria
+	
+	//Busca onde inserir
+	
+	if (raiz==NULL){
+		raiz = aux;
+	}else{
+		no *aux2 = raiz;
+		while(aux2->esq!=NULL && aux2->dir!=NULL){
+			aux2 = aux2->esq;
+		}
+		
+		if(aux2->esq==NULL){
+			aux2->esq = aux;
+		}else{
+			aux2->dir = aux;
+		}
+	}
+		
+}
+
+
+
+void imprime (no *raiz){
+	if (raiz!=NULL){
+		printf("%d ",raiz->info);
+		imprime(raiz->esq);
+		imprime(raiz->dir);
+	}
+}
+
+
+void preOrdem(no *raiz){
+  if(raiz!=NULL){
+    printf("%d ",raiz->info);
+    preOrdem(raiz->esq);
+    preOrdem(raiz->dir);
+    }
+}
+
+
+void EmOrdem(no *raiz){
+  if(raiz!=NULL){
+    EmOrdem(raiz->esq);
+    printf("%d ",raiz->info);
+    EmOrdem(raiz->dir);
+  }
+}
+
+void PosOrdem(no *raiz){
+  if(raiz!=NULL){
+    PosOrdem(raiz->esq);
+    PosOrdem(raiz->dir);
+    printf("%d ",raiz->info);
+  }
+}
+
+
+int main(){
+	raiz = inicializaArv();
+	int i,num;
+	for(i=0;i<6;i++){
+		printf("Informe um valor: ");
+		scanf("%d",&num);
+		insereNo(num);
+	}
+	imprime(raiz);
+}
